@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>칠만표 방수제 자재 계산기</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    input { padding: 8px; margin-right: 10px; width: 100px; }
+    button { padding: 8px 12px; }
+    .result { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h2>칠만표 방수제 자재 계산기</h2>
+  <p>평수를 입력하시면 필요한 자재 수량이 출력됩니다.</p>
+  <input type="number" id="pyeongInput" placeholder="예: 25">
+  <button onclick="calculateMaterials()">확인</button>
+
+  <div class="result" id="result"></div>
+
+  <script>
+    const materialTable = {
+      10: { CMW8: '18kg × 1개', CMW1A: '3세트', CMW1C: '18kg × 1개' },
+      15: { CMW8: '18kg × 1개', CMW1A: '5세트', CMW1C: '18kg × 1개' },
+      20: { CMW8: '18kg × 1개', CMW1A: '7세트', CMW1C: '18kg × 2개, 10kg × 1개' },
+      25: { CMW8: '18kg × 2개', CMW1A: '8세트', CMW1C: '18kg × 2개' },
+      30: { CMW8: '18kg × 2개', CMW1A: '10세트', CMW1C: '18kg × 2개, 10kg × 1개' },
+      35: { CMW8: '18kg × 2개, 10kg × 1개', CMW1A: '12세트', CMW1C: '18kg × 3개' },
+      40: { CMW8: '18kg × 3개', CMW1A: '13세트', CMW1C: '18kg × 3개, 10kg × 1개' },
+      45: { CMW8: '18kg × 3개', CMW1A: '15세트', CMW1C: '18kg × 4개' },
+      50: { CMW8: '18kg × 3개, 10kg × 1개', CMW1A: '17세트', CMW1C: '18kg × 4개, 10kg × 1개' },
+    };
+
+    function calculateMaterials() {
+      const pyeong = parseInt(document.getElementById('pyeongInput').value);
+      const resultDiv = document.getElementById('result');
+
+      if (materialTable[pyeong]) {
+        const m = materialTable[pyeong];
+        resultDiv.innerHTML = `
+          <p>▶ CMW-8 (모체강화제): ${m.CMW8}</p>
+          <p>▶ CMW-1A (강력접착방수제): ${m.CMW1A}</p>
+          <p>▶ CMW-1C (침투접착방수제): ${m.CMW1C}</p>
+        `;
+      } else {
+        resultDiv.innerHTML = '<span style=\"color:red\">10~50평 단위로만 입력 가능합니다.</span>';
+      }
+    }
+  </script>
+</body>
+</html>
